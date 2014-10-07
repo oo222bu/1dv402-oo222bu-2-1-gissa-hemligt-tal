@@ -27,31 +27,31 @@ namespace _1DV402.S2.L1A
         //Skapa metod som kontrollerar gissningarna
         public bool MakeGuess(int number)
         {
+            if (_count >= MaxNumberOfGuesses)
+            {
+                throw new ApplicationException();
+            }
            
             if (number < 1 || number > 100)
             {
                 throw new ArgumentOutOfRangeException();
             }
 
-            if (_count >= MaxNumberOfGuesses)
-            {
-                throw new ApplicationException();
-            }
             ++_count;
+
+            if (number == _number)
+            {
+                Console.WriteLine("Rätt Gissat! Du klarade det på {0} försöket.", _count);
+                return true;
+            }
+            
             if (number > _number)
             {
                 Console.WriteLine("{0} är för högt. Du har {1} gissningar kvar.", number, MaxNumberOfGuesses - _count);
             }
-
-            if (number < _number)
+            else
             {
                 Console.WriteLine("{0} är för lågt. Du har {1} gissningar kvar.", number, MaxNumberOfGuesses - _count);
-            }
-
-            if (number == _number)
-            {
-                Console.WriteLine("Rätt Gissat! Du klarade det på {0} försöket.",_count);
-                return true;
             }
             
             if (MaxNumberOfGuesses == _count)
